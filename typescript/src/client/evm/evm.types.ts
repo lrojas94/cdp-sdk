@@ -36,9 +36,12 @@ export type EvmClientInterface = Omit<
   | "createEvmAccount" // mapped to createAccount
   | "createEvmSmartAccount" // mapped to createSmartAccount
   | "importEvmAccount" // mapped to importAccount
+  | "exportEvmAccount" // mapped to exportAccount
+  | "exportEvmAccountByName" // mapped to exportAccount
   | "getEvmAccount" // mapped to getAccount
   | "getEvmAccountByName" // mapped to getAccount
   | "getEvmSmartAccount" // mapped to getSmartAccount
+  | "getEvmSmartAccountByName" // mapped to getSmartAccount
   | "getEvmSwapPrice" // mapped to getSwapPrice
   | "createEvmSwapQuote" // mapped to createSwapQuote
   | "getUserOperation"
@@ -60,6 +63,7 @@ export type EvmClientInterface = Omit<
   createAccount: (options: CreateServerAccountOptions) => Promise<ServerAccount>;
   createSmartAccount: (options: CreateSmartAccountOptions) => Promise<SmartAccount>;
   importAccount: (options: ImportServerAccountOptions) => Promise<ServerAccount>;
+  exportAccount: (options: ExportServerAccountOptions) => Promise<string>;
   getAccount: (options: GetServerAccountOptions) => Promise<ServerAccount>;
   getSmartAccount: (options: GetSmartAccountOptions) => Promise<SmartAccount>;
   getSwapPrice: (
@@ -319,6 +323,18 @@ export interface ImportServerAccountOptions {
   idempotencyKey?: string;
   /** The private key of the account. */
   privateKey: Hex;
+}
+
+/**
+ * Options for exporting an EVM server account.
+ */
+export interface ExportServerAccountOptions {
+  /** The address of the account. */
+  address?: Address;
+  /** The name of the account. */
+  name?: string;
+  /** The idempotency key. */
+  idempotencyKey?: string;
 }
 
 /**
